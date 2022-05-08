@@ -1,0 +1,83 @@
+<?php
+    include_once '../Model/catalogue.php';
+    include_once '../Controller/catalogueC.php';
+
+    $error = "";
+
+    // create catalogue
+    $catalogue = null;
+
+    // create an instance of the controller
+    $catalogueC = new catalogueC();
+    if (
+        isset($_POST["idM"]) &&
+		
+        isset($_POST["experience"])
+    ) {
+        if (
+            !empty($_POST["idM"]) && 
+			
+            !empty($_POST["experience"])
+        ) {
+            $catalogue = new catalogue(
+                $_POST['idM'],
+				
+                $_POST['experience']
+            );
+            $catalogueC->ajoutercatalogue($catalogue);
+            header('Location:affichercatalogue.php');
+        }
+        else
+            $error = "Missing information";
+    }
+
+    
+?>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Display</title>
+</head>
+    <body>
+        <button><a href="affichercatalogue.php">Retour catalogue</a></button>
+        <hr>
+        
+        <div id="error">
+            <?php echo $error; ?>
+        </div>
+        
+        <form action="" method="POST">
+            <table border="1" align="center">
+                <tr>
+                    <td>
+                        <label for="idM">Numéro Mannequin:
+                        </label>
+                    </td>
+                    <td><input type="text" name="idM" id="idM" maxlength="20"></td>
+                </tr>
+				<tr>
+                   
+                   
+        
+                    <td>
+                        <label for="experience">experience:
+                        </label>
+                    </td>
+                    <td>
+                        <input type="experience" name="experience" id="experience" >
+                    </td>
+                </tr>              
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Envoyer"> 
+                    </td>
+                    <td>
+                        <input type="reset" value="Annuler" >
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
